@@ -15,6 +15,7 @@ const getAllBook = async (token: string, dispatch: any, navigate: any) => {
     } catch (error) {
         dispatch(getBookFailed());
         window.alert("Denied Permission!");
+        navigate('/')
     }
 }
 export { getAllBook }
