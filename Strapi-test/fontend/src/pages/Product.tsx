@@ -14,9 +14,10 @@ const Product = () => {
         if (jwt) {
             getAllBook(jwt, dispatch, navigate);
         } else {
-            window.alert("You must be login!")
+            if (window.confirm("You must be login!")) {
+                navigate('/login')
+            }
         }
-
     }
     return (
         <>

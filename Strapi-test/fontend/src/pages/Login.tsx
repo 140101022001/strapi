@@ -2,7 +2,7 @@ import '../styles/login.scss'
 import { useState } from 'react'
 import {userLogin} from '../axios/axiosProvider'
 import { useDispatch } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const Login = () => {
     const [identifier,setIdentifier] = useState('');
@@ -11,8 +11,12 @@ const Login = () => {
 	const navigate = useNavigate();
 
     const handleLogin = () => {
-		const user = {identifier,password};
-		userLogin(user, dispatch, navigate);
+		if (identifier && password) {
+			const user = {identifier,password};
+			userLogin(user, dispatch, navigate);
+		} else {
+			window.alert('Vui lòng nhập email và password!')
+		}
     }
 
     return (
@@ -20,8 +24,8 @@ const Login = () => {
 				<div className="login-box">
                     <span id='title'>Welcome to my website!</span>
 					<div className='input-field'>
-						<span>UserName</span>
-						<input type="text" value={identifier} placeholder='Enter UserName...' 
+						<span>Email</span>
+						<input type="text" name='email' value={identifier} placeholder='Enter Email...' 
                         onChange={(event)=>setIdentifier(event.target.value)}/>
 					</div>
 					<div className='input-field'>
@@ -30,8 +34,8 @@ const Login = () => {
                         onChange={(event)=>setPassword(event.target.value)}/>
 					</div>
 					<div className='action'>
-						<a href=""><span id='register'>You don't have an account?</span><span>Register</span></a>
-						<button onClick={()=> handleLogin()}>Login</button>
+						<div><span id='register'>You don't have an account?</span><Link to='/register'><span>Register</span></Link></div>
+						<div><button onClick={()=> handleLogin()}>Login</button></div>
 					</div>
 				</div>
 		</div>
